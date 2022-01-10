@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: cap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: myapp
+        image: muzakkirsaifi/springboot:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8081
+        # resources: 
+        #   limits:
+        #     memory: 1Gi
+        #     cpu: "1"
+        #   requests:
+        #     memory: 1Gi
+        #     cpu: 500m
+        env:
+          - name: MONGODB_TABLE
+            value: "Capstone"
+          - name: MONGODB_HOST
+            value: "mongodb-0.mongodb"
+          - name: MONGODB_PORT
+            value: "27017"
