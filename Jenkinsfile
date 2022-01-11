@@ -70,6 +70,20 @@ pipeline {
                 }
             }
         }
-}
+    }
+    post{
+
+        failure
+        {
+            emailext attachLog: true, body: '$DEFAULT_CONTENT', subject: '$DEFAULT_SUBJECT', to: 'mohd.saifi@knoldus.com'  
+        }
+        success{
+            archiveArtifacts allowEmptyArchive: true, artifacts: '**/*.jar', excludes: '.mvn/*', onlyIfSuccessful: true
+            cleanWs()
+        }
+        always{
+            sh 'docker logout'
+        }
+    }
 }
 
