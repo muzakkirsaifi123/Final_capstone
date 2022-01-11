@@ -1,32 +1,10 @@
 ---
-# tasks file for jenkins
-- name: ensure the jenkins apt repository key is installed
-  apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=present
-  become: yes
+- import_tasks: java.yml
 
-- name: ensure the repository is configured
-  apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
-  become: yes
-  
-- name: apt update
-  apt: update_cache=yes
+- import_tasks: add_key.yml
 
-- name: Install Jenkins
-  apt:
-    name: jenkins
-    state: present
+- import_tasks: add_repo.yml
 
-- name: Start Jenkins service and enable on boot
-  service:
-    name: jenkins
-    state: started
-    enabled: yes
-    
-- name: Get init password Jenkins
-  shell: cat /var/lib/jenkins/secrets/initialAdminPassword
-  changed_when: false
-  register: result
- 
-- name: Print init password Jenkins
-  debug:
-    var: result.stdout
+- import_tasks: jenkins.yml
+  notify:
+    - restart jenkins
