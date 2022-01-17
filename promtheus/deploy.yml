@@ -31,3 +31,12 @@ spec:
           items:
               - key:  prometheus.yml
                 path: prometheus.yml
+
+# ENV_config variable as Environment
+
+      # env:
+      # - name: ENV_config
+      #   valueFrom:
+      #     configMapKeyRef:
+      #       name: pr-conf
+      #       key: prometheus.yml

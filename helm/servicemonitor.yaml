@@ -1,0 +1,29 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  annotations:
+    meta.helm.sh/release-name: prometheus
+    meta.helm.sh/release-namespace: cap
+  creationTimestamp: "2022-01-16T16:33:24Z"
+  generation: 1
+  labels:
+    app: kube-prometheus-stack-grafana
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: kube-prometheus-stack
+    app.kubernetes.io/version: 30.0.1
+    chart: kube-prometheus-stack-30.0.1
+    heritage: Helm
+    release: prometheus
+  name: prometheus-kube-prometheus-grafana
+  namespace: cap
+  resourceVersion: "528014"
+  uid: 38fcce10-be89-4dcd-8fe4-cb7339514a83
+spec:
+  endpoints:
+  - path: /metrics
+    port: http-web
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: prometheus
+      app.kubernetes.io/name: grafana
